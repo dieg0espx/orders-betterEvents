@@ -56,7 +56,6 @@ function Order() {
   return (
     <div className='order'>
         <Header />
-        Corrdinates: {longitude} {latitude}
         <iframe src={`https://ttfconstruction.com/MapsAPI/index.php?&from=${latitude},${longitude}&&to=${order.address}`} />
         <div className='details'>
             <p id="name"> {order.name} {order.lastName}</p>
