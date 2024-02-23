@@ -15,6 +15,9 @@ function Order() {
     const [isLoaded, setIsLoaded] = useState(false)
     const [showLoader, setShowLoader] = useState(true);
     const [sliderValue, setSliderValue] = useState(0);
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
+    const [error, setError] = useState(null);
 
     async function getBooking(id){
         const docRef = doc(db, "bookings", id);
@@ -31,10 +34,13 @@ function Order() {
         getBooking(id)
     },[id])
 
-
-    const [latitude, setLatitude] = useState(null);
-    const [longitude, setLongitude] = useState(null);
-    const [error, setError] = useState(null);
+    useEffect(() => {
+      if(isLoaded == true){
+        setTimeout(() => {
+          setShowLoader(false)
+        }, 1000); // 1000 milliseconds = 1 second
+      }
+    }, [isLoaded]);
   
     const getLocation = () => {
       if (navigator.geolocation) {
@@ -56,18 +62,6 @@ function Order() {
       getLocation();
     }, []);
 
-    useEffect(() => {
-      if(isLoaded == true){
-        setTimeout(() => {
-          setShowLoader(false)
-        }, 1000); // 1000 milliseconds = 1 second
-      }
-    }, [isLoaded]);
-  
-
-  
-
-    
     const handleSliderChange = (event) => {
       const value = parseInt(event.target.value, 10);
       setSliderValue(value);
@@ -81,6 +75,16 @@ function Order() {
     const handleSliderComplete = () => {
       alert("Order Completed")
     };
+
+    useEffect(() => {
+      let timer;
+      if (sliderValue > 0) {
+        timer = setTimeout(() => {
+          setSliderValue(0);
+        }, 500);
+      }
+      return () => clearTimeout(timer);
+    }, [sliderValue]);
 
   return (
     <div className='order'>
