@@ -91,10 +91,14 @@ function Order() {
       if (userConfirmed) {
         const cityRef = doc(db, 'bookings', orderId);
         setDoc(cityRef, { delivered: true }, { merge: true });
-        window.location.href = '/'
+        setTimeout(() => {
+          window.location.href = '/'
+        }, 1000);
+    
       }
-
     };
+
+
 
     useEffect(() => {
       let timer;
