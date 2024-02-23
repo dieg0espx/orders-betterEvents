@@ -97,8 +97,8 @@ function Order() {
               <p id="address"> {order.address} </p>
               <p id="address"> ID: {orderId} </p>
               <div className='action-btns'>
-                <button className="btn-call" onClick={()=>window.location.href `tel:${order.phone}`}> Call Now </button>  
-                <button className="btn-call" onClick={()=>window.location.href `sms:${order.phone}`}> Send Messge </button>
+                <button className="btn-call" onClick={()=>window.location.href =`tel:${order.phone}`}> Call Now </button>  
+                <button className="btn-call" onClick={()=>window.location.href = `sms:${order.phone}`}> Send Messge </button>
               </div>
             
               <div className='wrapper-slider'>
