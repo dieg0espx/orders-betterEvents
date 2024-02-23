@@ -5,7 +5,7 @@ import { getFirestore } from 'firebase/firestore';
 import { collection, getDocs, getDoc, deleteDoc } from 'firebase/firestore';
 import { doc } from "firebase/firestore";
 import {app} from '../Firebase';
-import { load } from 'cheerio';
+
 
 function Order() {
     const db = getFirestore(app)
