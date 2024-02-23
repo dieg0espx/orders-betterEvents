@@ -11,8 +11,10 @@ function Order() {
     const db = getFirestore(app)
     const { id } = useParams();
     const [order, setOrder] = useState([])
+    const [orderId, setOrderID] = useState()
     const [isLoaded, setIsLoaded] = useState(false)
     const [showLoader, setShowLoader] = useState(true);
+    const [sliderValue, setSliderValue] = useState(0);
 
     async function getBooking(id){
         const docRef = doc(db, "bookings", id);
@@ -20,6 +22,7 @@ function Order() {
 
         if (docSnap.exists()) {
           setOrder(docSnap.data())
+          setOrderID(docSnap.id)
         } else {
           alert("Order Not Found  :(")
         }
@@ -62,7 +65,7 @@ function Order() {
     }, [isLoaded]);
   
 
-    const [sliderValue, setSliderValue] = useState(0);
+  
 
     
     const handleSliderChange = (event) => {
@@ -92,7 +95,12 @@ function Order() {
               <p id="name"> {order.name} {order.lastName}</p>
               <p id="inflatable"> {order.inflatableName}</p>
               <p id="address"> {order.address} </p>
-              <button className="btn-call" onClick={()=>window.location.href `tel:${order.phone}`}> Call Now </button>
+              <p id="address"> ID: {orderId} </p>
+              <div className='action-btns'>
+                <button className="btn-call" onClick={()=>window.location.href `tel:${order.phone}`}> Call Now </button>  
+                <button className="btn-call" onClick={()=>window.location.href `sms:${order.phone}`}> Send Messge </button>
+              </div>
+            
               <div className='wrapper-slider'>
                 <p> Mark as Delivered </p>
                 <input className="slider" type="range" id="slider" name="slider" min="0" max="100" value={sliderValue} onChange={handleSliderChange}/>
