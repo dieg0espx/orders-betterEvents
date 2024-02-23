@@ -1,3 +1,10 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 .App {
   text-align: center;
 }
@@ -35,4 +42,118 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.header {
+  background-color: #072A40;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.header img {
+  width: 200px;
+}
+.header .iconMenu {
+  font-size: 30px;
+  color: white;
+}
+.header .iconMenu:hover {
+  color: #0089BF;
+}
+
+.orders {
+  padding: 70px 10px;
+}
+
+.orders .row { 
+  display: grid;
+  grid-template-columns: 80px auto 20px;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 10px 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  align-items: center;
+}
+.orders .row:hover{
+  border: 1px solid #0089BF;
+} 
+.orders .row #date{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.orders .row #date #day {
+  font-size: 25px;
+  font-weight: 500;
+}
+.orders .row #date #month {
+  color: #0089BF;
+  margin: -1px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.orders .row #date #year {
+  font-size: 12px;
+}
+
+.orders .row #name {
+  font-weight: 600;
+}
+.orders .row #address {
+
+}
+
+
+.order {
+  padding-top: 60px;
+}
+.order iframe {
+  width: 100%;
+  height: calc(100vh - 60px);
+}
+
+.order .details {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: white;
+  width: 100%;
+  height: 55vw;
+  padding: 20px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-color: white; 
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.order #name {
+  font-size: 30px;
+  font-weight: bold;
+}
+.order #inflatable {
+  font-size: 20px;
+}
+.order button {
+  display: block;
+  width: 100%;
+  font-size: 20px;
+  color: white;
+  padding: 10px;
+  background-color: #0089BF;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  margin-top: 20px;
 }
