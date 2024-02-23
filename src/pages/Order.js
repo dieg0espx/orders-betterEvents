@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import { useParams } from 'react-router-dom';
 import { getFirestore } from 'firebase/firestore';
-import { collection, getDocs, getDoc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, getDoc, deleteDo, setDoc } from 'firebase/firestore';
 import { doc } from "firebase/firestore";
 import {app} from '../Firebase';
 
@@ -72,8 +72,28 @@ function Order() {
       }
     };
 
+    const getCurrentDate = () => {
+      const currentDate = new Date();
+      const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+      return currentDate.toLocaleDateString('en-US', dateOptions);
+    };
+    
+    const getCurrentTime = () => {
+      const currentTime = new Date();
+      const hours = currentTime.getHours();
+      const minutes = currentTime.getMinutes();
+      const seconds = currentTime.getSeconds();
+      return `${hours}:${minutes}`; // E.g., "15:30:00"
+    };
+
     const handleSliderComplete = () => {
-      alert("Order Completed")
+      const userConfirmed = window.confirm(`ORDER COMPLETED !  \n ID: ${orderId} \n Delivered: ${getCurrentDate()} | ${getCurrentTime()} `)
+      if (userConfirmed) {
+        const cityRef = doc(db, 'bookings', orderId);
+        setDoc(cityRef, { delivered: true }, { merge: true });
+        window.location.href = '/'
+      }
+
     };
 
     useEffect(() => {
