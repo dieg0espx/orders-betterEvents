@@ -53,20 +53,35 @@ function Order() {
       getLocation();
     }, []);
 
-    
-
     useEffect(() => {
       if(isLoaded == true){
         setTimeout(() => {
           setShowLoader(false)
         }, 1000); // 1000 milliseconds = 1 second
       }
-    }, [isLoaded]); // Empty dependency array ensures the effect runs only once
+    }, [isLoaded]);
   
+
+    const [sliderValue, setSliderValue] = useState(0);
+
+    
+    const handleSliderChange = (event) => {
+      const value = parseInt(event.target.value, 10);
+      setSliderValue(value);
+  
+      if (value === 100) {
+        // Call your function when the slider reaches 100
+        handleSliderComplete();
+      }
+    };
+
+    const handleSliderComplete = () => {
+      alert("Order Completed")
+    };
 
   return (
     <div className='order'>
-        <Header />
+        <Header />   
         <div className='wrapper-loader' style={{display: showLoader ? "flex":"none"}}>
           <span className='loader'></span>
           <p id='legend'> Fetching Data</p>
@@ -77,7 +92,12 @@ function Order() {
               <p id="name"> {order.name} {order.lastName}</p>
               <p id="inflatable"> {order.inflatableName}</p>
               <p id="address"> {order.address} </p>
-              <button onClick={()=>window.location.href `tel:${order.phone}`}> Call Now </button>
+              <button className="btn-call" onClick={()=>window.location.href `tel:${order.phone}`}> Call Now </button>
+              <div className='wrapper-slider'>
+                <p> Mark as Delivered </p>
+                <input className="slider" type="range" id="slider" name="slider" min="0" max="100" value={sliderValue} onChange={handleSliderChange}/>
+              </div>
+              
           </div>
     </div>
   )

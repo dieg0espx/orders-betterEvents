@@ -129,7 +129,7 @@
   bottom: 0;
   background-color: white;
   width: 100%;
-  height: 55vw;
+  height: 70vw;
   padding: 20px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
@@ -147,7 +147,18 @@
 .order #inflatable {
   font-size: 20px;
 }
-.order button {
+.order .btn-call {
+  display: block;
+  width: 100%;
+  font-size: 20px;
+  color: white;
+  padding: 10px;
+  background-color: #0089BF;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+.order .btn-delivered {
   display: block;
   width: 100%;
   font-size: 20px;
@@ -216,4 +227,56 @@
 @keyframes rotate {
   0% {  transform: rotate(0)}
   100% { transform: rotate(360deg)}
+}
+
+
+.order .wrapper-slider p {
+  position: relative;
+  bottom: -30px;
+  text-align: center;
+  font-size: 20px;
+  color: gray;
+  font-weight: 300;
+  animation: colorAnimation 2s ease-in-out infinite alternate;
+}
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 60px;
+  border-radius: 10px;
+  background: #ddd;
+  outline: none;
+  /* opacity: 0.7; */
+  -webkit-transition: .2s;
+  /* transition: opacity .2s; */
+  margin-top: -10px;
+}
+
+/* Styles for the slider thumb */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 90px;
+  height: 60px;
+  border-radius: 10px;
+  background: #0089BF;
+  cursor: pointer;
+  z-index: 999;
+  position: relative;
+}
+
+.slider::-webkit-slider-thumb {
+  background-image: url("https://static-00.iconduck.com/assets.00/chevron-right-icon-1152x2048-pt8coo5w.png");
+  height: 60px; /* You must set a specified height */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size:15px;
+}
+@keyframes colorAnimation {
+  from {
+    color: lightgray;
+  }
+  to {
+    color: gray;
+  }
 }
