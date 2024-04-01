@@ -18,6 +18,7 @@ function Order() {
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
     const [error, setError] = useState(null);
+    const [showDetails, setShowDetails] = useState(true)
 
     async function getBooking(id){
         const docRef = doc(db, "bookings", id);
@@ -98,8 +99,6 @@ function Order() {
       }
     };
 
-
-
     useEffect(() => {
       let timer;
       if (sliderValue > 0) {
@@ -112,18 +111,20 @@ function Order() {
 
   return (
     <div className='order'>
-        <Header />   
+        <Header backButton='true'/>   
         <div className='wrapper-loader' style={{display: showLoader ? "flex":"none"}}>
           <span className='loader'></span>
           <p id='legend'> Fetching Data</p>
         </div>
-        
+
           <iframe onLoad={()=>setIsLoaded(true)} src={`https://ttfconstruction.com/MapsAPI/index.php?&from=${latitude},${longitude}&&to=${order.address}`} />
-          <div className='details'>
+          <div className={showDetails ?  "details" :  "hideDetails"}>
+              <i className="bi bi-chevron-compact-up btn-open" onClick={()=>setShowDetails(true)}  style={{display: showDetails ? "none":"block"}}></i>
+              <i className="bi bi-x-circle-fill btn-close"     onClick={()=>setShowDetails(false)} style={{display: showDetails ? "block":"none"}}></i>
               <p id="name"> {order.name} {order.lastName}</p>
               <p id="inflatable"> {order.inflatableName}</p>
               <p id="address"> {order.address} </p>
-              <p id="address"> ID: {orderId} </p>
+              {/* <p id="address"> ID: {orderId} </p> */}
               <div className='action-btns'>
                 <button className="btn-call" onClick={()=>window.location.href =`tel:${order.phone}`}> Call Now </button>  
                 <button className="btn-call" onClick={()=>window.location.href = `sms:${order.phone}`}> Send Messge </button>
