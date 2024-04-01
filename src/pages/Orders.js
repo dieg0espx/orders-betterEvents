@@ -4,6 +4,7 @@ import { getFirestore } from 'firebase/firestore';
 import { collection, getDocs, getDoc, deleteDoc } from 'firebase/firestore';
 import { doc } from "firebase/firestore";
 import {app} from '../Firebase';
+import Passcode from '../components/Passcode';
 
 function Orders() {
     const db = getFirestore(app)
@@ -58,6 +59,7 @@ function Orders() {
   return (
     <div className='orders'>
         <Header />
+        <Passcode />
         {bookings.map((booking, index) => (
             <div className='row' onClick={()=>window.location.href = "/order/" + booking.id}>
                 <div id="date">
