@@ -170,6 +170,12 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   animation: slideDown 0.4s;
 }
+@media screen and (min-height:800px) {
+    .order .details {
+      height: 70vw;
+    }
+}
+
 
 @keyframes slideUp {
   from {
@@ -185,6 +191,8 @@
     bottom: -73vw;
   }
 }
+
+
 
 .order .btn-open {
   position: relative;
@@ -360,7 +368,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 10%;
+  justify-content: center;
+}
+.wrapper-passcode .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90%;
 }
 .wrapper-passcode img {
   width: 50%;
@@ -371,6 +385,11 @@
    display: flex;
    justify-content: space-between;
 }
+@media screen and (min-height:800px) {
+    .digits-container {
+      margin-top: 20px;
+    }
+}
 .wrapper-passcode .icon-digit {
     color: white;
 }
@@ -378,10 +397,15 @@
   display: grid;
   grid-template-columns: 33% 33% 33%;
   margin-top: 40px;
-  width: 80%;
+  width: 85vw;
+  height: 55vh;
+  /* position: fixed;
+  left: 50%;
+  top: 20%;
+  transform: translateX(-50%); */
 }
 .wrapper-passcode .btn-num {
-  font-size: 30px;
+  font-size: 9vw;
   font-weight: 200;
   padding: 20px;
   margin: 10px;
