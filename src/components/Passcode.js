@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getFirestore } from 'firebase/firestore';
 import { doc, getDoc } from "firebase/firestore";
 import {app} from '../Firebase';
+import Cookies from 'js-cookie';
 
 function Passcode() {
     const db = getFirestore(app)
@@ -12,6 +13,9 @@ function Passcode() {
 
     useEffect(()=>{
         getCode()
+        if(Cookies.get('access')){
+            setAccess(true)
+        }
     },[])
 
     async function getCode(){
@@ -33,8 +37,11 @@ function Passcode() {
         if(inCode.join('') == code) {
             console.log('CORRECT !');
             setAccess(true)
+            Cookies.set('access', true,  { expires: 480 / 1440 })
         }
     }
+
+
     
     
   return (
