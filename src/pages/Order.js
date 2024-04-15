@@ -63,13 +63,22 @@ function Order() {
       getLocation();
     }, []);
 
-    const handleSliderChange = (event) => {
+    const onDeliver = (event) => {
       const value = parseInt(event.target.value, 10);
       setSliderValue(value);
   
       if (value === 100) {
         // Call your function when the slider reaches 100
-        handleSliderComplete();
+        markDelivered();
+      }
+    };
+    const onPickedUp = (event) => {
+      const value = parseInt(event.target.value, 10);
+      setSliderValue(value);
+  
+      if (value === 100) {
+        // Call your function when the slider reaches 100
+        markPickedUp();
       }
     };
 
@@ -87,11 +96,22 @@ function Order() {
       return `${hours}:${minutes}`; // E.g., "15:30:00"
     };
 
-    const handleSliderComplete = () => {
-      const userConfirmed = window.confirm(`ORDER COMPLETED !  \n ID: ${orderId} \n Delivered: ${getCurrentDate()} | ${getCurrentTime()} `)
+    const markDelivered = () => {
+      const userConfirmed = window.confirm(`ORDER COMPLETED !  \n ID: ${orderId} \n Timestamp: ${getCurrentDate()} | ${getCurrentTime()} `)
       if (userConfirmed) {
         const cityRef = doc(db, 'bookings', orderId);
         setDoc(cityRef, { delivered: true }, { merge: true });
+        setTimeout(() => {
+          window.location.href = '/'
+        }, 1000);
+    
+      }
+    };
+    const markPickedUp = () => {
+      const userConfirmed = window.confirm(`ELEMENTS PICKED UP !  \n ID: ${orderId} \n Timestamp: ${getCurrentDate()} | ${getCurrentTime()} `)
+      if (userConfirmed) {
+        const cityRef = doc(db, 'bookings', orderId);
+        setDoc(cityRef, { pickedUp: true }, { merge: true });
         setTimeout(() => {
           window.location.href = '/'
         }, 1000);
@@ -130,9 +150,13 @@ function Order() {
                 <button className="btn-call" onClick={()=>window.location.href = `sms:${order.phone}`}> Send Messge </button>
               </div>
             
-              <div className='wrapper-slider'>
+              <div className='wrapper-slider' style={{display: order.delivered == true ? "none":"block"}}>
                 <p> Mark as Delivered </p>
-                <input className="slider" type="range" id="slider" name="slider" min="0" max="100" value={sliderValue} onChange={handleSliderChange}/>
+                <input className="slider" type="range" id="slider" name="slider" min="0" max="100" value={sliderValue} onChange={onDeliver}/>
+              </div>
+              <div className='wrapper-slider' style={{display: order.delivered == true && order.pickedUp !== true ? "block":"none"}}>
+                <p> Mark as Picked Up </p>
+                <input className="slider" type="range" id="slider" name="slider" min="0" max="100" value={sliderValue} onChange={onPickedUp}/>
               </div>
               
           </div>

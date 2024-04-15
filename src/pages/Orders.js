@@ -32,7 +32,8 @@ function Orders() {
                 paid: doc.data().balances.paid,
                 rent: doc.data().balances.rent,
                 method:doc.data().method,
-                delivered:doc.data().delivered
+                delivered:doc.data().delivered,
+                pickedUp: doc.data().pickedUp
             });
         })
         setBookings(arrayBookings)
@@ -71,9 +72,12 @@ function Orders() {
                     <p id="name"> {booking.name} {booking.lastName} </p>
                     <p id="inflatable"> {booking.inflatableName} </p>
                     <p id="address"> {booking.address.split(',')[0]},{booking.address.split(',')[1]} </p>
+                    <div className='labels'>
+                      <p id="delivered" style={{display: booking.delivered ? "block":"none"}}> Delivered </p>
+                      <p id="pickedUp"  style={{display: booking.pickedUp ? "block":"none"}}> Picked Up</p>
+                    </div>
                 </div>
                 <div>
-                  <i className="bi bi-check-circle-fill iconCheck" style={{display: booking.delivered ? "block":"none"}}></i>
                   <i className="bi bi-chevron-compact-right iconChev"></i>
                 </div>
           </div>
