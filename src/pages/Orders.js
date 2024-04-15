@@ -36,6 +36,11 @@ function Orders() {
                 pickedUp: doc.data().pickedUp
             });
         })
+        arrayBookings.sort((a, b) => {
+          const dateA = new Date(a.bookingDates[0])
+          const dateB = new Date(b.bookingDates[0])
+          return dateA - dateB;
+      });
         setBookings(arrayBookings)
     }
 

@@ -67,9 +67,14 @@
   color: #0089BF;
 }
 .header .btn-back {
+  width: 20px;
+  height: 40px;
   color: white;
   background-color: transparent;
   outline: none;
+  text-align: center;
+  line-height: 30px;
+  margin-bottom: -10px;
 }
 
 .orders {
