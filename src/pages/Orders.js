@@ -9,6 +9,7 @@ import Passcode from '../components/Passcode';
 function Orders() {
     const db = getFirestore(app)
     const [bookings, setBookings] = useState([])
+    const [edit, setEdit] = useState(false)
 
     async function getBookings(){
         const querySnapshot = await getDocs(collection(db, 'bookings'));
@@ -30,7 +31,7 @@ function Orders() {
                 deposit: doc.data().balances.deposit,
                 insurance: doc.data().balances.insurance,
                 paid: doc.data().balances.paid,
-                rent: doc.data().balances.rent,
+                rent: doc.data().balances.rent,  
                 method:doc.data().method,
                 delivered:doc.data().delivered,
                 pickedUp: doc.data().pickedUp
@@ -62,18 +63,27 @@ function Orders() {
           }
     }
 
+    async function deleteOrder(id, name, inflatable){
+      let response = window.confirm("Do you want to delete order: \n Name: " + name + "\n Product: " + inflatable)
+      if(response){
+        await deleteDoc(doc(db, "bookings", id));
+      } 
+      getBookings()
+    }
+
   return (
     <div className='orders'>
-        <Header />
+        <Header action="edit" toggleEdit={()=>setEdit(!edit)}/>
         <Passcode />
         {bookings.map((booking, index) => (
-            <div className='row' onClick={()=>window.location.href = "/order/" + booking.id}>
-                <div id="date">
+          <div className='wrapper-row' style={{display: edit ? "grid":"block"}}>
+            <div className='row' >
+                <div id="date" onClick={()=>window.location.href = "/order/" + booking.id}>
                     <p id="day">{booking.bookingDates[0].split('/')[1]}</p>
                     <p id="month">{getMonth(booking.bookingDates[0].split('/')[0])}</p>
                     <p id="year">{booking.bookingDates[0].split('/')[2]}</p>
                 </div>
-                <div>
+                <div onClick={()=>window.location.href = "/order/" + booking.id}>
                     <p id="name"> {booking.name} {booking.lastName} </p>
                     <p id="inflatable"> {booking.inflatableName} </p>
                     <p id="address"> {booking.address.split(',')[0]},{booking.address.split(',')[1]} </p>
@@ -84,7 +94,9 @@ function Orders() {
                 </div>
                 <div>
                   <i className="bi bi-chevron-compact-right iconChev"></i>
-                </div>
+                </div>              
+            </div>
+            <i className="bi bi-trash iconDelete" onClick={()=> deleteOrder(booking.id, booking.name + booking.lastName, booking.inflatableName)} style={{display: edit ? "block":"none"}}></i>
           </div>
         ))}
     </div>

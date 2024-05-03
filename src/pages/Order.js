@@ -21,7 +21,7 @@ function Order() {
     const [showDetails, setShowDetails] = useState(true)
 
     async function getBooking(id){
-        const docRef = doc(db, "bookings", id);
+        const docRef = doc(db, "bookings", id)
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {

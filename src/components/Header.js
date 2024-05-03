@@ -15,7 +15,7 @@ function Header(props) {
     <div className='header' >
         <i className="bi bi-chevron-compact-left btn-back"  style={{display: props.backButton ? "block" : "none"}} onClick={()=> goBack()}></i>
         <img src='https://res.cloudinary.com/dxfi1vj6q/image/upload/v1705371522/BetterEvents-02_gqzykd_pellx5.png' />
-        {/* <i className="bi bi-list iconMenu"></i> */}
+        <i style={{display: props.action == 'edit' ? "block":"none"}} class="bi bi-sliders2 btnEdit" onClick={()=>props.toggleEdit()}></i>
     </div>
   )
 }
