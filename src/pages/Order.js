@@ -21,7 +21,7 @@ function Order() {
     const [showDetails, setShowDetails] = useState(true)
 
     async function getBooking(id){
-        const docRef = doc(db, "bookings", id)
+        const docRef = doc(db, "bookings-test", id)
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -99,7 +99,7 @@ function Order() {
     const markDelivered = () => {
       const userConfirmed = window.confirm(`ORDER COMPLETED !  \n ID: ${orderId} \n Timestamp: ${getCurrentDate()} | ${getCurrentTime()} `)
       if (userConfirmed) {
-        const cityRef = doc(db, 'bookings', orderId);
+        const cityRef = doc(db, 'bookings-test', orderId);
         setDoc(cityRef, { delivered: true }, { merge: true });
         setTimeout(() => {
           window.location.href = '/'
@@ -110,7 +110,7 @@ function Order() {
     const markPickedUp = () => {
       const userConfirmed = window.confirm(`ELEMENTS PICKED UP !  \n ID: ${orderId} \n Timestamp: ${getCurrentDate()} | ${getCurrentTime()} `)
       if (userConfirmed) {
-        const cityRef = doc(db, 'bookings', orderId);
+        const cityRef = doc(db, 'bookings-test', orderId);
         setDoc(cityRef, { pickedUp: true }, { merge: true });
         setTimeout(() => {
           window.location.href = '/'
@@ -129,6 +129,12 @@ function Order() {
       return () => clearTimeout(timer);
     }, [sliderValue]);
 
+    function capitalize(str) {
+      if (!str) return '';
+      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    }
+    
+
   return (
     <div className='order'>
         <Header backButton='true'/>   
@@ -141,7 +147,7 @@ function Order() {
           <div className={showDetails ?  "details" :  "hideDetails"}>
               <i className="bi bi-chevron-compact-up btn-open" onClick={()=>setShowDetails(true)}  style={{display: showDetails ? "none":"block"}}></i>
               <i className="bi bi-x-circle-fill btn-close"     onClick={()=>setShowDetails(false)} style={{display: showDetails ? "block":"none"}}></i>
-              <p id="name"> {order.name} {order.lastName}</p>
+              <p id="name"> {capitalize(order.name)} {capitalize(order.lastName)}</p>
               <p id="inflatable"> {order.inflatableName}</p>
               <p id="address"> {order.address} </p>
               {/* <p id="address"> ID: {orderId} </p> */}
